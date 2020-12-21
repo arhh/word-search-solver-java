@@ -38,11 +38,11 @@ public class WordSearchModel {
         return newGrid;
     }
 
-    private boolean updateGrid(int row, int column, char value) {
+    public boolean updateGrid(int row, int column, char value) {
         boolean updated = false;
 
         // Only update the word search if the row-column parameters are within grid range
-        if (row <= grid.size() && column <= grid.get(1).size()) {
+        if (row < grid.size() && column < grid.get(1).size()) {
             grid.get(row).set(column, value);
             updated = true;
         }
@@ -59,7 +59,7 @@ public class WordSearchModel {
      *
      * @returns An instance of WordSearchModel
      */
-    public WordSearchModel createWordSearch(int rows, int columns, String[] wordsToFind) {
+    public static WordSearchModel createWordSearch(int rows, int columns, String[] wordsToFind) {
         WordSearchModel wordsearch = new WordSearchModel(rows, columns, wordsToFind);
 
         return wordsearch;
