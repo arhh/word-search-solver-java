@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * grid the word exists.
  */
 public class WordSearchModel {
-    private ArrayList<ArrayList<Character>> grid;
+    private char[][] grid;
     private String[] wordsToFind;
 
     private WordSearchModel(int rows, int columns, String[] wordsToFind) {
@@ -28,13 +28,8 @@ public class WordSearchModel {
      *
      * @return An ArrayList of ArrayLists of Strings representing the grid.
      */
-    private ArrayList<ArrayList<Character>> initialiseGrid(int rows, int columns) {
-        ArrayList<ArrayList<Character>> newGrid = new ArrayList<ArrayList<Character>>();
-        ArrayList<Character> row;
-        for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
-            row = new ArrayList<Character>(columns);
-            newGrid.add(row);
-        }
+    private char[][] initialiseGrid(int rows, int columns) {
+        char[][] newGrid = new char[rows][columns];
         return newGrid;
     }
 
@@ -42,8 +37,8 @@ public class WordSearchModel {
         boolean updated = false;
 
         // Only update the word search if the row-column parameters are within grid range
-        if (row < grid.size() && column < grid.get(1).size()) {
-            grid.get(row).set(column, value);
+        if (row < grid.length && column < grid[0].length) {
+            grid[row][column] = value;
             updated = true;
         }
 
@@ -75,8 +70,18 @@ public class WordSearchModel {
         String stringRepr = "";
 
         // Iterate over each row of grid and print the array representing each
-        for (ArrayList<Character>row : grid) {
-            stringRepr += row.toString() + "\n";
+        for (char[] row : grid) {
+            stringRepr += "[";
+            for (char column : row) {
+                if (Character.isLetter(column)) {
+                    stringRepr += " " + column + " ";
+                }
+                else {
+                    stringRepr += " " + "." + " ";
+                }
+
+            }
+            stringRepr += "]\n";
         }
 
         return stringRepr;
