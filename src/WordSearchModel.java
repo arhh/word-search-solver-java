@@ -64,4 +64,21 @@ public class WordSearchModel {
 
         return wordsearch;
     }
+
+    /*
+     * Return a string representation of this word search.
+     *
+     * @return A string representing the word search grid.
+     */
+    @Override
+    public String toString() {
+        String stringRepr = "";
+
+        // Iterate over each row of grid and print the array representing each
+        for (ArrayList<Character>row : grid) {
+            stringRepr += row.toString() + "\n";
+        }
+
+        return stringRepr;
+    }
 }
