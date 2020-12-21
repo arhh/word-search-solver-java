@@ -15,7 +15,7 @@ public class WordSearchModel {
 
     private WordSearchModel(int rows, int columns, String[] wordsToFind) {
         this.wordsToFind = wordsToFind;
-        grid = createGrid(rows, columns);
+        grid = initialiseGrid(rows, columns);
     }
 
     /*
@@ -28,7 +28,7 @@ public class WordSearchModel {
      *
      * @return An ArrayList of ArrayLists of Strings representing the grid.
      */
-    private ArrayList<ArrayList<Character>> createGrid(int rows, int columns) {
+    private ArrayList<ArrayList<Character>> initialiseGrid(int rows, int columns) {
         ArrayList<ArrayList<Character>> newGrid = new ArrayList<ArrayList<Character>>();
         ArrayList<Character> row;
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
