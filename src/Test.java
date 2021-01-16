@@ -6,7 +6,7 @@ public class Test {
         final int testRow = 2;
         final int testColumn = 2;
 
-        WordSearchModel ws = WordSearchModel.createWordSearch(testRow, testColumn, wordsToFind);
+        WordSearchModel ws = WordSearchModel.createWordSearch(testRow, testColumn);
         System.out.println(ws);
 
         boolean testUpdateGridSuccess = testUpdateGrid_lastGridLocationShouldContainCharacterA(ws, testRow, testColumn);

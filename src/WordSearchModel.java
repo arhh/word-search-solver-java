@@ -11,10 +11,8 @@ import java.util.ArrayList;
  */
 public class WordSearchModel {
     private char[][] grid;
-    private String[] wordsToFind;
 
-    private WordSearchModel(int rows, int columns, String[] wordsToFind) {
-        this.wordsToFind = wordsToFind;
+    private WordSearchModel(int rows, int columns) {
         grid = initialiseGrid(rows, columns);
     }
 
@@ -50,12 +48,11 @@ public class WordSearchModel {
      *
      * @param rows An int representing the number of rows in the grid
      * @param columns An int representing the number of columns in the grid
-     * @param wordsToFind An array of Strings representing the words to find on the word search
      *
      * @returns An instance of WordSearchModel
      */
-    public static WordSearchModel createWordSearch(int rows, int columns, String[] wordsToFind) {
-        WordSearchModel wordsearch = new WordSearchModel(rows, columns, wordsToFind);
+    public static WordSearchModel createWordSearch(int rows, int columns) {
+        WordSearchModel wordsearch = new WordSearchModel(rows, columns);
 
         return wordsearch;
     }
