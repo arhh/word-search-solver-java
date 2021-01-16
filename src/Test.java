@@ -18,8 +18,8 @@ public class Test {
         boolean getCellSuccess = getCell_correctItemReturned(ws, testRow, testColumn);
         if (!getCellSuccess) {System.out.println("getCell_correctItemReturned method fail");}
 
-        boolean getCellUnsuccessful = getCell_outOfBounds(ws, testRow, testColumn);
-        if (!getCellUnsuccessful) {System.out.println("getCellUnsuccessful method fail");}
+        boolean findWordSuccessful = findWord_findWordSuccessfully(ws, testRow, testColumn);
+        if (!findWordSuccessful) {System.out.println("getCellUnsuccessful method fail");}
     }
 
     /*
