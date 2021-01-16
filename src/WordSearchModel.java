@@ -61,6 +61,25 @@ public class WordSearchModel {
     }
 
     /*
+     * Get the value in word search at location given by row-coloumn.
+     *
+     * @param row An int representing the row of the location
+     * @param column An int representing the column of the location
+     *
+     * @returns A char representing the item at the selected location,
+     * or 0 if the coordinates are out of bounds.
+     */
+    public char getCell(int row, int column) {
+        char cellItem = 0;
+
+        if (row < grid.length && column < grid[0].length) {
+            cellItem = grid[row][column];
+        }
+
+        return cellItem;
+    }
+
+    /*
      * Return a string representation of this word search.
      *
      * @return A string representing the word search grid.
