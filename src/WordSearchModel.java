@@ -102,4 +102,25 @@ public class WordSearchModel {
 
         return stringRepr;
     }
+
+    /*
+     * Method to locate the row-column position of a word on the word search
+     *
+     * This method searches the grid for the specified word and returns the row-column pair
+     * where the first letter of the word is located.
+     *
+     * @param wordToFind A String representing the word to find on the grid
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or -1 if not found.
+     */
+    public int[] findWord(String wordToFind) {
+        int[] wordLocation = {-1, -1};
+
+        // Placeholder for proper implementation
+        wordLocation[0] = 0;
+        wordLocation[1] = 0;
+
+        return wordLocation;
+    }
 }
