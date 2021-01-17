@@ -4,9 +4,8 @@ public class Test {
 
 
     public static void main(String[] args) {
-        final String[] wordsToFind = {"word1", "word2"};
-        final int testRow = 4;
-        final int testColumn = 4;
+        final int testRow = 5;
+        final int testColumn = 5;
 
         WordSearchModel ws = WordSearchModel.createWordSearch(testRow, testColumn);
         System.out.println(ws);
@@ -19,7 +18,7 @@ public class Test {
         if (!getCellSuccess) {System.out.println("getCell_correctItemReturned method fail");}
 
         boolean findWordSuccessful = findWord_findWordSuccessfully(ws, testRow, testColumn);
-        if (!findWordSuccessful) {System.out.println("getCellUnsuccessful method fail");}
+        if (!findWordSuccessful) {System.out.println("findWord_findWordSuccessfully method fail");}
     }
 
     /*
@@ -75,10 +74,15 @@ public class Test {
         }
 
         for (int wordCharIndex = 0; wordCharIndex < wordToFind.length(); wordCharIndex++) {
-            ws.updateGrid(wordCharIndex, wordCharIndex, wordToFind.charAt(wordCharIndex));
+            ws.updateGrid(4, wordCharIndex + 1, wordToFind.charAt(wordCharIndex));
         }
 
+        ws.updateGrid(1, 0, 'p');
+
+        System.out.println(ws.toString());
+
         int[] wordLocation = ws.findWord(wordToFind);
+        System.out.println(wordLocation[0] + " " + wordLocation[1]);
 
         if (wordLocation[0] >= 0 & wordLocation[1] >= 0) {
             pass = true;
