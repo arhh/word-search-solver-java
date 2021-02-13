@@ -109,9 +109,28 @@ public class WordSearchModel {
      * @param wordToFind A String representing the word to find on the grid
      *
      * @returns An int array representing the location of the first letter of the word on
-     * the grid, or -1 if not found.
+     * the grid, or {-1, -1} if not found.
      */
     public int[] findWord(String wordToFind) {
+        int[] matchCoordinates = findLeftToRightHorizontal(wordToFind);
+
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            matchCoordinates = findRightToLeftHorizontal(wordToFind);
+        }
+
+        return matchCoordinates;
+    }
+
+    /*
+     * Search for start coordinates of a specified word on the word search from left to right
+     * horizontally.
+     *
+     * @param wordToFind A String representing the word to find
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or {-1, -1} if not found.
+     */
+    private int[] findLeftToRightHorizontal(String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
 
@@ -128,8 +147,51 @@ public class WordSearchModel {
             }
         }
 
-        int[] matchCoordinates = {matchingRowCoordinate, matchingColumnCoordinate};
-        return matchCoordinates;
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    /*
+     * Search for start coordinates of a specified word on the word search from right to left
+     * horizontally.
+     *
+     * @param wordToFind A String representing the word to find
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or {-1, -1} if not found.
+     */
+    private int[] findRightToLeftHorizontal(String wordToFind) {
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
+
+        for (int rowIndex = 0; rowIndex < grid.length; rowIndex++) {
+            String row = String.valueOf(reverse(grid[rowIndex]));
+            System.out.println(row);
+            matchingColumnCoordinate = (row.contains(wordToFind)) ? (row.length() - row.indexOf(wordToFind) - 1) : -1;
+
+            if (matchingColumnCoordinate != -1) {
+                matchingRowCoordinate = rowIndex;
+                break;
+            }
+        }
+
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    /*
+     * Utility method to reverse a character array.
+     *
+     * @param charArray A character array to reverse.
+     *
+     * @returns An character array identical to that passed as argument but with elements
+     * in reverse order.
+     */
+    private char[] reverse(char[] charArray) {
+        char[] reversedArray = new char[charArray.length];
+
+        for (int i = 0; i < reversedArray.length; i++) {
+            reversedArray[i] = charArray[charArray.length - 1 - i];
+        }
+        return reversedArray;
     }
 
 }

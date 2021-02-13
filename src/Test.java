@@ -74,7 +74,7 @@ public class Test {
         }
 
         for (int wordCharIndex = 0; wordCharIndex < wordToFind.length(); wordCharIndex++) {
-            ws.updateGrid(1, wordCharIndex + 1, wordToFind.charAt(wordCharIndex));
+            ws.updateGrid(1, wordToFind.length() - wordCharIndex, wordToFind.charAt(wordCharIndex));
         }
 
         ws.updateGrid(1, 0, 'p');
