@@ -1,3 +1,4 @@
+import java.io.OptionalDataException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -115,82 +116,24 @@ public class WordSearchModel {
      * the grid, or -1 if not found.
      */
     public int[] findWord(String wordToFind) {
-        int[] wordLocation = {-1, -1};
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
 
-        wordLocation = findWordLeftRightHorizonal(wordToFind);
+        for (int rowIndex = 0; rowIndex < grid.length; rowIndex++) {
+            // TODO: Make grid an fully fledged array of string rows
+            // However, for going all directions (where building an array each time would be needed
+            // may be better to use valueOf for consistency.
+            String row = String.valueOf(grid[rowIndex]);
+            matchingColumnCoordinate = row.indexOf(wordToFind);
 
-        return wordLocation;
-    }
-
-    /*
-     * Find a word on the word search reading left to right horizontally
-     *
-     * @param wordToFind A string representing the word to search for
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or -1 if not found.
-     */
-    private int[] findWordLeftRightHorizonal(String wordToFind) {
-        int[] wordLocation = {-1, -1};
-
-        int wordLocationInColumn = -1;
-        int rowIndex = 0;
-        while (rowIndex < grid.length & wordLocationInColumn == -1) {
-            char[] column = grid[rowIndex];
-
-            wordLocationInColumn = findWordLeftRightHorizonalR(wordToFind, 0, column, 0, false);
-
-            if (wordLocationInColumn > -1) {
-                wordLocation[0] = rowIndex;
-                wordLocation[1] = wordLocationInColumn;
-            }
-            rowIndex++;
-        }
-        return wordLocation;
-    }
-
-    /*
-     * Function to locate a given word in a grid column
-     *
-     * @param wordToFind A string representing the word to find on the grid
-     * @param wordToFindStartIndex An int representing the index of the first character in wordToFind
-     * @param column A char array representing the column of the grid to search
-     * @param columnStartIndex An int representing the index of the first character in wordToFind
-     * @param wordPartiallyFound A boolean indicating if part of the word has been found by a previous call
-     * to this method
-     *
-     * @returns An int representing the location of the first character in the word to find on the grid.
-     * -1 if not found.
-     */
-    private int findWordLeftRightHorizonalR(String wordToFind, int wordToFindStartIndex, char[] column, int columnStartIndex, boolean wordPartiallyFound) {
-
-        // At end of word means successful match
-        if (wordToFindStartIndex >= wordToFind.length()) {
-            return columnStartIndex - wordToFind.length();
-        }
-
-        // No match on current row if at end of column
-        else if (columnStartIndex >= column.length) {
-            return -1;
-        }
-
-        // Increment word index and column index if match found
-        else if (wordToFind.charAt(wordToFindStartIndex) == column[columnStartIndex]) {
-            return findWordLeftRightHorizonalR(wordToFind, wordToFindStartIndex + 1, column, columnStartIndex + 1, true);
-        }
-
-        // Current character in word does not match column character
-        else {
-            // Increment just the column index and reset word index if successful in last iteration
-            if (wordPartiallyFound) {
-                return findWordLeftRightHorizonalR(wordToFind, 0, column, columnStartIndex, false);
-            }
-            // Increment just the column index not successful in last iteration
-            else {
-                return findWordLeftRightHorizonalR(wordToFind, 0, column, columnStartIndex + 1, false);
+            if (matchingColumnCoordinate != -1) {
+                matchingRowCoordinate = rowIndex;
+                break;
             }
         }
 
-
+        int[] matchCoordinates = {matchingRowCoordinate, matchingColumnCoordinate};
+        return matchCoordinates;
     }
+
 }
