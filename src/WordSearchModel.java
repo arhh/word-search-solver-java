@@ -1,7 +1,3 @@
-import java.io.OptionalDataException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /*
  * Class representing a word search.
  *
