@@ -66,18 +66,18 @@ public class Test {
         boolean pass = false;
         String wordToFind = "plot";
 
-        // Update the word search with characters, including the word to find
         for (int row = 0; row < maxRows; row++) {
             for (int col = 0; col < maxColumns; col++) {
                 ws.updateGrid(row, col, ((char) ('a' + new Random().nextInt(26))));
             }
         }
 
+        // Inject the test wordToFind into wordsearch
         for (int wordCharIndex = 0; wordCharIndex < wordToFind.length(); wordCharIndex++) {
-            ws.updateGrid(1, wordToFind.length() - wordCharIndex, wordToFind.charAt(wordCharIndex));
+            ws.updateGrid(maxRows - wordCharIndex - 1, 2, wordToFind.charAt(wordCharIndex));
         }
 
-        ws.updateGrid(1, 0, 'p');
+        ws.updateGrid(3, 3, 'p');
 
         System.out.println(ws.toString());
 

@@ -118,6 +118,32 @@ public class WordSearchModel {
             matchCoordinates = findRightToLeftHorizontal(wordToFind);
         }
 
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            System.out.println("Searching downwards...");
+            matchCoordinates = findDownwards(wordToFind);
+        }
+
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            System.out.println("Searching upwards...");
+            matchCoordinates = findUpwards(wordToFind);
+        }
+
+//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+//            matchCoordinates = findRightToLeftUpDiagonal(wordToFind);
+//        }
+//
+//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+//            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
+//        }
+//
+//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+//            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
+//        }
+//
+//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+//            matchCoordinates = findLeftToRightDownDiagonal(wordToFind);
+//        }
+
         return matchCoordinates;
     }
 
@@ -135,9 +161,6 @@ public class WordSearchModel {
         int matchingColumnCoordinate = -1;
 
         for (int rowIndex = 0; rowIndex < grid.length; rowIndex++) {
-            // TODO: Make grid an fully fledged array of string rows
-            // However, for going all directions (where building an array each time would be needed
-            // may be better to use valueOf for consistency.
             String row = String.valueOf(grid[rowIndex]);
             matchingColumnCoordinate = row.indexOf(wordToFind);
 
@@ -178,6 +201,79 @@ public class WordSearchModel {
     }
 
     /*
+     * Search for start coordinates of a specified word on the word search from top to bottom.
+     *
+     * @param wordToFind A String representing the word to find
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or {-1, -1} if not found.
+     */
+    private int[] findDownwards(String wordToFind) {
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
+
+        for (int columnIndex = 0; columnIndex < grid[0].length; columnIndex++) {
+            final String column = buildStringFromRows(columnIndex);
+            matchingRowCoordinate = column.indexOf(wordToFind);
+
+            if (matchingRowCoordinate != -1) {
+                matchingColumnCoordinate = columnIndex;
+                break;
+            }
+        }
+
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    /*
+     * Search for start coordinates of a specified word on the word search from top to bottom.
+     *
+     * @param wordToFind A String representing the word to find
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or {-1, -1} if not found.
+     */
+    private int[] findUpwards(String wordToFind) {
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
+
+        for (int columnIndex = 0; columnIndex < grid[0].length; columnIndex++) {
+            final String column = buildStringFromRows(columnIndex);
+            System.out.println("Scanning: " + reverse(column) + " for " + wordToFind);
+            matchingRowCoordinate = reverse(column).contains(wordToFind) ? grid.length - reverse(column).indexOf(wordToFind) - 1 : -1;
+
+            if (matchingRowCoordinate != -1) {
+                matchingColumnCoordinate = grid[0].length - columnIndex - 1;
+                break;
+            }
+        }
+
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    /*
+     * Concatenate an element from a sequence of arrays into a single array.
+     *
+     * Given an array of arrays and an index, this method will iterate through each
+     * array, take the element at the specified index and concatenate them together.
+     *
+     * @param columnIndex An int representing the index from where to take the element in the
+     * nested arrays.
+     *
+     * @returns A String representing the concatenation of all indexed elements from the
+     * sequence of arrays.
+     */
+    private String buildStringFromRows(int columnIndex) {
+        String columnString = "";
+
+        for (char[] row : grid) {
+            columnString += row[columnIndex];
+        }
+
+        return columnString;
+    }
+
+    /*
      * Utility method to reverse a character array.
      *
      * @param charArray A character array to reverse.
@@ -192,6 +288,24 @@ public class WordSearchModel {
             reversedArray[i] = charArray[charArray.length - 1 - i];
         }
         return reversedArray;
+    }
+
+    /*
+     * Utility method to reverse a string.
+     *
+     * @param charArray A String to reverse.
+     *
+     * @returns An String identical to that passed as argument but with characters
+     * in reverse order.
+     */
+    private String reverse(String str) {
+        StringBuilder reversedString = new StringBuilder();
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(str.length() - i - 1);
+            reversedString.append(c);
+        }
+        return reversedString.toString();
     }
 
 }
