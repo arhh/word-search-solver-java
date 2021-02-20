@@ -136,9 +136,9 @@ public class WordSearchModel {
 //            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
 //        }
 //
-//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-//            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
-//        }
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
+        }
 //
 //        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
 //            matchCoordinates = findLeftToRightDownDiagonal(wordToFind);
@@ -169,6 +169,34 @@ public class WordSearchModel {
                 break;
             }
         }
+
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    /*
+     * Search for start coordinates of a specified word on the word search from lower left
+     * to upper right diagonally.
+     *
+     * @param wordToFind A String representing the word to find
+     *
+     * @returns An int array representing the location of the first letter of the word on
+     * the grid, or {-1, -1} if not found.
+     */
+    private int[] findLeftToRightUpDiagonal(String wordToFind) {
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
+        // TODO
+        // Recursively:
+        // match = match(rowindex and columnindex and wordToFind)
+        // if match OR (rowindex >= rows.length && cols >= cols.length): return coordinates
+        // if rowindex >= rows.length: recurse(rowi = rowi, coli + 1, wordToFind)
+        // if colindex >= cols.length: recurse(rowi + 1, coli = coli, wordToFind)
+        // else: recurse(rowi+1, coli+1, wordToFind)
+
+        // function match(rowi, coli)
+        // builds a string from rowi -> 0 and coli -> cols.length
+        // match the wordToFind in the built string
+        // either -1,-1 or the matched coordinates <- offset based on conversion from diagonal to actual
 
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
