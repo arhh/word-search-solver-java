@@ -1,3 +1,5 @@
+package com.example.wordsearchsolver.main;
+
 /*
  * Class representing a word search.
  *
@@ -337,3 +339,4 @@ public class WordSearchModel {
     }
 
 }
+
