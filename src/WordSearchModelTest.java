@@ -1,8 +1,6 @@
 import java.util.Random;
 
-public class Test {
-
-
+public class WordSearchModelTest {
     public static void main(String[] args) {
         final int testRow = 5;
         final int testColumn = 5;
