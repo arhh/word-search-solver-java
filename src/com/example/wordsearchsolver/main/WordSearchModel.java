@@ -121,12 +121,12 @@ public class WordSearchModel {
         }
 
         if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-            System.out.println("Searching downwards...");
+//            System.out.println("Searching downwards...");
             matchCoordinates = findDownwards(wordToFind);
         }
 
         if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-            System.out.println("Searching upwards...");
+//            System.out.println("Searching upwards...");
             matchCoordinates = findUpwards(wordToFind);
         }
 
@@ -138,9 +138,9 @@ public class WordSearchModel {
 //            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
 //        }
 //
-        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
-        }
+//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+//            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
+//        }
 //
 //        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
 //            matchCoordinates = findLeftToRightDownDiagonal(wordToFind);
@@ -218,7 +218,7 @@ public class WordSearchModel {
 
         for (int rowIndex = 0; rowIndex < grid.length; rowIndex++) {
             String row = String.valueOf(reverse(grid[rowIndex]));
-            System.out.println(row);
+//            System.out.println(row);
             matchingColumnCoordinate = (row.contains(wordToFind)) ? (row.length() - row.indexOf(wordToFind) - 1) : -1;
 
             if (matchingColumnCoordinate != -1) {
@@ -269,7 +269,7 @@ public class WordSearchModel {
 
         for (int columnIndex = 0; columnIndex < grid[0].length; columnIndex++) {
             final String column = buildStringFromRows(columnIndex);
-            System.out.println("Scanning: " + reverse(column) + " for " + wordToFind);
+//            System.out.println("Scanning: " + reverse(column) + " for " + wordToFind);
             matchingRowCoordinate = reverse(column).contains(wordToFind) ? grid.length - reverse(column).indexOf(wordToFind) - 1 : -1;
 
             if (matchingRowCoordinate != -1) {

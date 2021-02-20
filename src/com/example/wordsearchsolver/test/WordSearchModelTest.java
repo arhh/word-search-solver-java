@@ -1,5 +1,8 @@
 import com.example.wordsearchsolver.main.WordSearchModel;
 import org.junit.Test;
+
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 public class WordSearchModelTest {
@@ -62,5 +65,49 @@ public class WordSearchModelTest {
 
         final char retrievedCellValue = wsm.getCell(targetRow, targetColumn);
         assertEquals(0, retrievedCellValue);
+    }
+
+    // Test that we can find a word, regardless of direction
+    @Test
+    public void test_findWordSuccessfully() {
+        final String wordToFind = "plot";
+        final Random charGenerator = new Random();
+        wsm = WordSearchModel.createWordSearch(ROWS, COLUMNS);
+
+        // Randomise the word search grid with alphabetic characters
+        for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < COLUMNS; columnIndex++) {
+                wsm.updateGrid(rowIndex, columnIndex, (char) charGenerator.nextInt(26));
+            }
+        }
+
+        // Insert wordToFind into grid. Here we only care that the findWord method
+        // works, no regard to how it finds a word.
+        for (int i = 0; i < wordToFind.length(); i++) {
+            wsm.updateGrid(0, i, wordToFind.charAt(i));
+        }
+
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(wordToFind);
+
+        assertArrayEquals(new int[] {0, 0}, startCoordinateMatchOnWordSearch);
+    }
+
+    // Test that we can find a word, regardless of direction
+    @Test
+    public void test_findWordUnsuccessfully() {
+        final String wordToFind = "plot";
+        final Random charGenerator = new Random();
+        wsm = WordSearchModel.createWordSearch(ROWS, COLUMNS);
+
+        // Randomise the word search grid with alphabetic characters
+        for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < COLUMNS; columnIndex++) {
+                wsm.updateGrid(rowIndex, columnIndex, (char) charGenerator.nextInt(26));
+            }
+        }
+
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(wordToFind);
+
+        assertArrayEquals(new int[] {-1, -1}, startCoordinateMatchOnWordSearch);
     }
 }
