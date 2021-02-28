@@ -1,13 +1,22 @@
 import com.example.wordsearchsolver.main.WordSearchModel;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.security.UnresolvedPermission;
 import java.util.Random;
 
 import static org.junit.Assert.*;
 
 public class WordSearchModelTest {
+    private static final String LEFT_RIGHT = "plot";
+    private static final String RIGHT_LEFT = "couple";
+    private static final String UP_DOWN = "board";
+    private static final String DOWN_UP = "extern";
+    private static final String DOWN_RIGHT = "pebble";
+    private static final String DOWN_LEFT = "eraser";
+    private static final String UP_RIGHT = "woody";
+    private static final String UP_LEFT = "plastic";
+
     private static final int ROWS = 10;
     private static final int COLUMNS = 15;
     private static WordSearchModel wsm;
@@ -19,14 +28,7 @@ public class WordSearchModelTest {
         wsm = WordSearchModel.createWordSearch(ROWS, COLUMNS);
         alphabetPicker = new Random();
 
-        final String leftRight = "plot";
-        final String rightLeft = "couple";
-        final String upDown = "board";
-        final String downUp = "extern";
-        final String downRight = "pebble";
-        final String downLeft = "eraser";
-        final String upRight = "woody";
-        final String upLeft = "plastic";
+
 
         // Randomise the whole word search grid with alphabetic characters
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
@@ -37,29 +39,29 @@ public class WordSearchModelTest {
 
         // Here we choose random start positions for rows/columns to ensure there is no
         // overlap in the placement of words to find.
-        for (int charIndex = 0; charIndex < leftRight.length(); charIndex++) {
-            wsm.updateGrid(0, charIndex, leftRight.charAt(charIndex));
+        for (int charIndex = 0; charIndex < LEFT_RIGHT.length(); charIndex++) {
+            wsm.updateGrid(0, charIndex, LEFT_RIGHT.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < rightLeft.length(); charIndex++) {
-            wsm.updateGrid(0, COLUMNS - charIndex - 1, rightLeft.charAt(charIndex));
+        for (int charIndex = 0; charIndex < RIGHT_LEFT.length(); charIndex++) {
+            wsm.updateGrid(0, COLUMNS - charIndex - 1, RIGHT_LEFT.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < upDown.length(); charIndex++) {
-            wsm.updateGrid(5 + charIndex, 0, upDown.charAt(charIndex));
+        for (int charIndex = 0; charIndex < UP_DOWN.length(); charIndex++) {
+            wsm.updateGrid(5 + charIndex, 0, UP_DOWN.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < downUp.length(); charIndex++) {
-            wsm.updateGrid(ROWS - 1 - charIndex, 1, downUp.charAt(charIndex));
+        for (int charIndex = 0; charIndex < DOWN_UP.length(); charIndex++) {
+            wsm.updateGrid(ROWS - 1 - charIndex, 1, DOWN_UP.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < downRight.length(); charIndex++) {
-            wsm.updateGrid(2 + charIndex, 4 + charIndex, downRight.charAt(charIndex));
+        for (int charIndex = 0; charIndex < DOWN_RIGHT.length(); charIndex++) {
+            wsm.updateGrid(2 + charIndex, 4 + charIndex, DOWN_RIGHT.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < downLeft.length(); charIndex++) {
-            wsm.updateGrid(1 + charIndex, COLUMNS - 1 - charIndex, downLeft.charAt(charIndex));
+        for (int charIndex = 0; charIndex < DOWN_LEFT.length(); charIndex++) {
+            wsm.updateGrid(1 + charIndex, COLUMNS - 1 - charIndex, DOWN_LEFT.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < upRight.length(); charIndex++) {
-            wsm.updateGrid(8 - charIndex, 9 + charIndex, upRight.charAt(charIndex));
+        for (int charIndex = 0; charIndex < UP_RIGHT.length(); charIndex++) {
+            wsm.updateGrid(8 - charIndex, 9 + charIndex, UP_RIGHT.charAt(charIndex));
         }
-        for (int charIndex = 0; charIndex < upLeft.length(); charIndex++) {
-            wsm.updateGrid(ROWS - 1 - charIndex, 8 - charIndex, upLeft.charAt(charIndex));
+        for (int charIndex = 0; charIndex < UP_LEFT.length(); charIndex++) {
+            wsm.updateGrid(ROWS - 1 - charIndex, 8 - charIndex, UP_LEFT.charAt(charIndex));
         }
 
         System.out.println(wsm);
@@ -112,19 +114,58 @@ public class WordSearchModelTest {
 
     @Test
     public void test_findWordLeftToRightHorizontalSuccessfully() {
-        final String wordToFind = "plot";
-
-        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(wordToFind);
-
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(LEFT_RIGHT);
         assertArrayEquals(new int[] {0, 0}, startCoordinateMatchOnWordSearch);
     }
 
     @Test
-    public void test_findWordLeftToRightHorizontalUnsuccessfully() {
+    public void test_findWordUnsuccessfully() {
         final String wordToFind = "I am not on grid";
 
         final int[] matchCoordinates = wsm.findWord(wordToFind);
 
         assertArrayEquals(new int[] {-1, -1}, matchCoordinates);
+    }
+
+    @Test
+    public void test_findWordRightToLeftHorizontalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(RIGHT_LEFT);
+        assertArrayEquals(new int[] {0, 14}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordDownVerticalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(UP_DOWN);
+        assertArrayEquals(new int[] {5, 0}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordUpVerticalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(DOWN_UP);
+        assertArrayEquals(new int[] {9, 1}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordDownRightDiagonalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(DOWN_RIGHT);
+        assertArrayEquals(new int[] {2, 4}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordDownLeftDiagonalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(DOWN_LEFT);
+        assertArrayEquals(new int[] {1, 14}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordUpRightDiagonalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(UP_RIGHT);
+        assertArrayEquals(new int[]{8, 9}, startCoordinateMatchOnWordSearch);
+    }
+
+    @Test
+    public void test_findWordUpLeftDiagonalSuccessfully() {
+        final int[] startCoordinateMatchOnWordSearch = wsm.findWord(UP_LEFT);
+        assertArrayEquals(new int[] {9, 8}, startCoordinateMatchOnWordSearch);
     }
 }
