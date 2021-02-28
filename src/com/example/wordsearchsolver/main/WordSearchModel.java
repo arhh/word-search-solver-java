@@ -273,7 +273,7 @@ public class WordSearchModel {
             matchingRowCoordinate = reverse(column).contains(wordToFind) ? grid.length - reverse(column).indexOf(wordToFind) - 1 : -1;
 
             if (matchingRowCoordinate != -1) {
-                matchingColumnCoordinate = grid[0].length - columnIndex - 1;
+                matchingColumnCoordinate = columnIndex;
                 break;
             }
         }
