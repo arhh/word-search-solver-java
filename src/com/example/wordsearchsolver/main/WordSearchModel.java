@@ -138,9 +138,9 @@ public class WordSearchModel {
 //            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
 //        }
 //
-//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-//            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
-//        }
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
+        }
 //
 //        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
 //            matchCoordinates = findLeftToRightDownDiagonal(wordToFind);
@@ -184,21 +184,44 @@ public class WordSearchModel {
      * @returns An int array representing the location of the first letter of the word on
      * the grid, or {-1, -1} if not found.
      */
+    private int[] findLeftToRightUpDiagonal(String wordToFind, int rowIndex, int columnIndex) {
+
+        final int[] matchCoordinates = matchStringGivenDiagonal(rowIndex, columnIndex, wordToFind);
+
+        // return the coordinates if reached end of word search or found a match
+        if ((matchCoordinates[0] > -1 && matchCoordinates[1] > -1) || (rowIndex >= grid.length - 1 && columnIndex >= grid[0].length - 1)) {
+            return matchCoordinates;
+        } else if (rowIndex >= grid.length - 1) {
+            return findLeftToRightUpDiagonal(wordToFind, rowIndex, columnIndex + 1);
+        } else {
+            // No match and neither row nor column index has reached the end
+            return findLeftToRightUpDiagonal(wordToFind, rowIndex + 1, columnIndex);
+        }
+    }
+
     private int[] findLeftToRightUpDiagonal(String wordToFind) {
+        return findLeftToRightUpDiagonal(wordToFind, 0, 0);
+    }
+
+    private int[] matchStringGivenDiagonal(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
-        // TODO
-        // Recursively:
-        // match = match(rowindex and columnindex and wordToFind)
-        // if match OR (rowindex >= rows.length && cols >= cols.length): return coordinates
-        // if rowindex >= rows.length: recurse(rowi = rowi, coli + 1, wordToFind)
-        // if colindex >= cols.length: recurse(rowi + 1, coli = coli, wordToFind)
-        // else: recurse(rowi+1, coli+1, wordToFind)
+        String stringFromDiagonal = "";
 
-        // function match(rowi, coli)
-        // builds a string from rowi -> 0 and coli -> cols.length
-        // match the wordToFind in the built string
-        // either -1,-1 or the matched coordinates <- offset based on conversion from diagonal to actual
+        int currentRowIndex = rowIndex;
+        int currentColumnIndex = columnIndex;
+        while (currentRowIndex >= 0 && (currentColumnIndex < grid[0].length)) {
+            stringFromDiagonal += getCell(currentRowIndex, currentColumnIndex);
+            currentRowIndex--;
+            currentColumnIndex++;
+        }
+
+        final int wordStartInString = stringFromDiagonal.indexOf(wordToFind);
+
+        if (wordStartInString > -1) {
+            matchingRowCoordinate = rowIndex - wordStartInString;
+            matchingColumnCoordinate = columnIndex + wordStartInString;
+        }
 
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
@@ -218,7 +241,6 @@ public class WordSearchModel {
 
         for (int rowIndex = 0; rowIndex < grid.length; rowIndex++) {
             String row = String.valueOf(reverse(grid[rowIndex]));
-//            System.out.println(row);
             matchingColumnCoordinate = (row.contains(wordToFind)) ? (row.length() - row.indexOf(wordToFind) - 1) : -1;
 
             if (matchingColumnCoordinate != -1) {
@@ -269,7 +291,6 @@ public class WordSearchModel {
 
         for (int columnIndex = 0; columnIndex < grid[0].length; columnIndex++) {
             final String column = buildStringFromRows(columnIndex);
-//            System.out.println("Scanning: " + reverse(column) + " for " + wordToFind);
             matchingRowCoordinate = reverse(column).contains(wordToFind) ? grid.length - reverse(column).indexOf(wordToFind) - 1 : -1;
 
             if (matchingRowCoordinate != -1) {
