@@ -121,23 +121,21 @@ public class WordSearchModel {
         }
 
         if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-//            System.out.println("Searching downwards...");
             matchCoordinates = findDownwards(wordToFind);
         }
 
         if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-//            System.out.println("Searching upwards...");
             matchCoordinates = findUpwards(wordToFind);
         }
 
 //        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
 //            matchCoordinates = findRightToLeftUpDiagonal(wordToFind);
 //        }
-//
-//        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
-//            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
-//        }
-//
+
+        if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
+            matchCoordinates = findRightToLeftDownDiagonal(wordToFind);
+        }
+
         if (matchCoordinates[0] == -1 || matchCoordinates[1] == -1) {
             matchCoordinates = findLeftToRightUpDiagonal(wordToFind);
         }
@@ -199,6 +197,25 @@ public class WordSearchModel {
         }
     }
 
+    private int[] findRightToLeftDownDiagonal(String wordToFind) {
+        return findRightToLeftDownDiagonal(wordToFind, 0, 0);
+    }
+
+    private int[] findRightToLeftDownDiagonal(String wordToFind, int rowIndex, int columnIndex) {
+
+        final int[] matchCoordinates = matchStringGivenDiagonalReverse(rowIndex, columnIndex, wordToFind);
+
+        // return the coordinates if reached end of word search or found a match
+        if ((matchCoordinates[0] > -1 && matchCoordinates[1] > -1) || (rowIndex >= grid.length - 1 && columnIndex >= grid[0].length - 1)) {
+            return matchCoordinates;
+        } else if (rowIndex >= grid.length - 1) {
+            return findRightToLeftDownDiagonal(wordToFind, rowIndex, columnIndex + 1);
+        } else {
+            // No match and neither row nor column index has reached the end
+            return findRightToLeftDownDiagonal(wordToFind, rowIndex + 1, columnIndex);
+        }
+    }
+
     private int[] findLeftToRightUpDiagonal(String wordToFind) {
         return findLeftToRightUpDiagonal(wordToFind, 0, 0);
     }
@@ -219,6 +236,30 @@ public class WordSearchModel {
         final int wordStartInString = stringFromDiagonal.indexOf(wordToFind);
 
         if (wordStartInString > -1) {
+            matchingRowCoordinate = rowIndex - wordStartInString;
+            matchingColumnCoordinate = columnIndex + wordStartInString;
+        }
+
+        return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
+    }
+
+    private int[] matchStringGivenDiagonalReverse(int rowIndex, int columnIndex, String wordToFind) {
+        int matchingRowCoordinate = -1;
+        int matchingColumnCoordinate = -1;
+        String stringFromDiagonal = "";
+
+        int currentRowIndex = rowIndex;
+        int currentColumnIndex = columnIndex;
+        while (currentRowIndex >= 0 && (currentColumnIndex < grid[0].length)) {
+            stringFromDiagonal += getCell(currentRowIndex, currentColumnIndex);
+            currentRowIndex--;
+            currentColumnIndex++;
+        }
+
+        int wordStartInString = reverse(stringFromDiagonal).indexOf(wordToFind);
+
+        if (wordStartInString > -1) {
+            wordStartInString = stringFromDiagonal.length() - 1 - wordStartInString;
             matchingRowCoordinate = rowIndex - wordStartInString;
             matchingColumnCoordinate = columnIndex + wordStartInString;
         }
