@@ -30,6 +30,15 @@ public class WordSearchModel {
         return newGrid;
     }
 
+    /*
+     * Update a cell in the word search grid.
+     *
+     * @param row An int representing the row containing the cell to update
+     * @param column An int representing the column containing the cell to update
+     * @param value A char representing the new value for the cell to update
+     *
+     * @returns A boolean which is true if the cell was updated successfully
+     */
     public boolean updateGrid(int row, int column, char value) {
         boolean updated = false;
 
@@ -197,6 +206,14 @@ public class WordSearchModel {
         }
     }
 
+    /*
+     * Find a word on the word search in right-to-left downwards direction
+     *
+     * @param wordToFind A string representing the word to find
+     *
+     * @returns An int representing the coordinates of the first character in the word, or an array
+     * {-1, -1} if not found.
+     */
     private int[] findRightToLeftDownDiagonal(String wordToFind) {
         return findRightToLeftDownDiagonal(wordToFind, 0, 0);
     }
@@ -216,10 +233,26 @@ public class WordSearchModel {
         }
     }
 
+    /*
+     * Find a word on the word search in left-to-right up direction
+     *
+     * @param wordToFind A string representing the word to find
+     *
+     * @returns An int representing the coordinates of the first character in the word, or an array
+     * {-1, -1} if not found.
+     */
     private int[] findLeftToRightUpDiagonal(String wordToFind) {
         return findLeftToRightUpDiagonal(wordToFind, 0, 0);
     }
 
+    /*
+     * Find a word on the word search in left-to-right down direction
+     *
+     * @param wordToFind A string representing the word to find
+     *
+     * @returns An int representing the coordinates of the first character in the word, or an array
+     * {-1, -1} if not found.
+     */
     private int[] findLeftToRightDownDiagonal(String wordToFind) {
         return findLeftToRightDownDiagonal(wordToFind, 0, grid[0].length - 1);
     }
@@ -239,6 +272,14 @@ public class WordSearchModel {
         }
     }
 
+    /*
+     * Find a word on the word search in right-to-left up direction
+     *
+     * @param wordToFind A string representing the word to find
+     *
+     * @returns An int representing the coordinates of the first character in the word, or an array
+     * {-1, -1} if not found.
+     */
     private int[] findRightToLeftUpDiagonal(String wordToFind) {
         return findRightToLeftUpDiagonal(wordToFind, 0, grid[0].length - 1);
     }
@@ -258,7 +299,8 @@ public class WordSearchModel {
         }
     }
 
-    // used by findLeftToRightUpDiagonal
+    // helper method for diagonal search logic to build a regular string from a diagonal series of
+    // cells on the word search
     private int[] matchStringGivenDiagonal(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -282,6 +324,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
+    // helper method for diagonal search logic to build a regular string from a diagonal series of
+    // cells on the word search
     private int[] matchStringGivenDiagonalReverse(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -306,7 +350,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    // used by findLeftToRightUpDiagonal
+    // helper method for diagonal search logic to build a regular string from a diagonal series of
+    // cells on the word search
     private int[] matchStringGivenDiagonalDown(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -330,7 +375,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    // used by findRightToLeftUpDiagonal
+    // helper method for diagonal search logic to build a regular string from a diagonal series of
+    // cells on the word search
     private int[] matchStringGivenDiagonalDownReverse(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
