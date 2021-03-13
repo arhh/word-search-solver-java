@@ -15,16 +15,7 @@ public class WordSearchModel {
         grid = initialiseGrid(rows, columns);
     }
 
-    /*
-     * Create an empty grid representing the word search board.
-     *
-     * A grid is a 2D array of characters.
-     *
-     * @param rows An int representing the number of rows in the grid
-     * @param columns An int representing the number of columns in the grid
-     *
-     * @return An ArrayList of ArrayLists of Strings representing the grid.
-     */
+    // Create a blank word search grid with client-specified rows and columns
     private char[][] initialiseGrid(int rows, int columns) {
         char[][] newGrid = new char[rows][columns];
         return newGrid;
@@ -156,15 +147,7 @@ public class WordSearchModel {
         return matchCoordinates;
     }
 
-    /*
-     * Search for start coordinates of a specified word on the word search from left to right
-     * horizontally.
-     *
-     * @param wordToFind A String representing the word to find
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or {-1, -1} if not found.
-     */
+    // Return the first character coordinates for a word found in left to right direction
     private int[] findLeftToRightHorizontal(String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -182,15 +165,7 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    /*
-     * Search for start coordinates of a specified word on the word search from lower left
-     * to upper right diagonally.
-     *
-     * @param wordToFind A String representing the word to find
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or {-1, -1} if not found.
-     */
+    // Search for start coordinates of a specified word on the word search from lower left to upper right diagonally
     private int[] findLeftToRightUpDiagonal(String wordToFind, int rowIndex, int columnIndex) {
 
         final int[] matchCoordinates = matchStringGivenDiagonal(rowIndex, columnIndex, wordToFind);
@@ -206,14 +181,7 @@ public class WordSearchModel {
         }
     }
 
-    /*
-     * Find a word on the word search in right-to-left downwards direction
-     *
-     * @param wordToFind A string representing the word to find
-     *
-     * @returns An int representing the coordinates of the first character in the word, or an array
-     * {-1, -1} if not found.
-     */
+    // Find a word on the word search in right-to-left downwards direction
     private int[] findRightToLeftDownDiagonal(String wordToFind) {
         return findRightToLeftDownDiagonal(wordToFind, 0, 0);
     }
@@ -233,26 +201,12 @@ public class WordSearchModel {
         }
     }
 
-    /*
-     * Find a word on the word search in left-to-right up direction
-     *
-     * @param wordToFind A string representing the word to find
-     *
-     * @returns An int representing the coordinates of the first character in the word, or an array
-     * {-1, -1} if not found.
-     */
+    // Find a word on the word search in left-to-right up direction
     private int[] findLeftToRightUpDiagonal(String wordToFind) {
         return findLeftToRightUpDiagonal(wordToFind, 0, 0);
     }
 
-    /*
-     * Find a word on the word search in left-to-right down direction
-     *
-     * @param wordToFind A string representing the word to find
-     *
-     * @returns An int representing the coordinates of the first character in the word, or an array
-     * {-1, -1} if not found.
-     */
+    // Find a word on the word search in left-to-right down direction
     private int[] findLeftToRightDownDiagonal(String wordToFind) {
         return findLeftToRightDownDiagonal(wordToFind, 0, grid[0].length - 1);
     }
@@ -272,14 +226,7 @@ public class WordSearchModel {
         }
     }
 
-    /*
-     * Find a word on the word search in right-to-left up direction
-     *
-     * @param wordToFind A string representing the word to find
-     *
-     * @returns An int representing the coordinates of the first character in the word, or an array
-     * {-1, -1} if not found.
-     */
+    // Find a word on the word search in right-to-left up direction
     private int[] findRightToLeftUpDiagonal(String wordToFind) {
         return findRightToLeftUpDiagonal(wordToFind, 0, grid[0].length - 1);
     }
@@ -299,8 +246,8 @@ public class WordSearchModel {
         }
     }
 
-    // helper method for diagonal search logic to build a regular string from a diagonal series of
-    // cells on the word search
+    // Build a string from a diagonal series of word search coordinates left to right upwards
+    // and find start coordinates of word in the string.
     private int[] matchStringGivenDiagonal(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -324,8 +271,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    // helper method for diagonal search logic to build a regular string from a diagonal series of
-    // cells on the word search
+    // Build a string from a diagonal series of word search coordinates left to right upwards
+    // and find start coordinates of word in the reversed string.
     private int[] matchStringGivenDiagonalReverse(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -350,8 +297,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    // helper method for diagonal search logic to build a regular string from a diagonal series of
-    // cells on the word search
+    // Build a string from a diagonal series of word search coordinates left to right downwards
+    // and find start coordinates of word in the string.
     private int[] matchStringGivenDiagonalDown(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -375,8 +322,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    // helper method for diagonal search logic to build a regular string from a diagonal series of
-    // cells on the word search
+    // Build a string from a diagonal series of word search coordinates left to right downwards
+    // and find start coordinates of word in the string.
     private int[] matchStringGivenDiagonalDownReverse(int rowIndex, int columnIndex, String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -401,15 +348,8 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    /*
-     * Search for start coordinates of a specified word on the word search from right to left
-     * horizontally.
-     *
-     * @param wordToFind A String representing the word to find
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or {-1, -1} if not found.
-     */
+    // Search for start coordinates of a specified word on the word search from right to left
+    // horizontally
     private int[] findRightToLeftHorizontal(String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -427,14 +367,7 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    /*
-     * Search for start coordinates of a specified word on the word search from top to bottom.
-     *
-     * @param wordToFind A String representing the word to find
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or {-1, -1} if not found.
-     */
+    // Search for start coordinates of a specified word on the word search from top to bottom.
     private int[] findDownwards(String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -452,14 +385,7 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    /*
-     * Search for start coordinates of a specified word on the word search from top to bottom.
-     *
-     * @param wordToFind A String representing the word to find
-     *
-     * @returns An int array representing the location of the first letter of the word on
-     * the grid, or {-1, -1} if not found.
-     */
+    // Search for start coordinates of a specified word on the word search from top to bottom
     private int[] findUpwards(String wordToFind) {
         int matchingRowCoordinate = -1;
         int matchingColumnCoordinate = -1;
@@ -477,18 +403,7 @@ public class WordSearchModel {
         return new int[] {matchingRowCoordinate, matchingColumnCoordinate};
     }
 
-    /*
-     * Concatenate an element from a sequence of arrays into a single array.
-     *
-     * Given an array of arrays and an index, this method will iterate through each
-     * array, take the element at the specified index and concatenate them together.
-     *
-     * @param columnIndex An int representing the index from where to take the element in the
-     * nested arrays.
-     *
-     * @returns A String representing the concatenation of all indexed elements from the
-     * sequence of arrays.
-     */
+    // Concatenate an element from a sequence of arrays into a single array.
     private String buildStringFromRows(int columnIndex) {
         String columnString = "";
 
@@ -499,14 +414,7 @@ public class WordSearchModel {
         return columnString;
     }
 
-    /*
-     * Utility method to reverse a character array.
-     *
-     * @param charArray A character array to reverse.
-     *
-     * @returns An character array identical to that passed as argument but with elements
-     * in reverse order.
-     */
+    // Utility method to reverse a character array.
     private char[] reverse(char[] charArray) {
         char[] reversedArray = new char[charArray.length];
 
@@ -516,14 +424,7 @@ public class WordSearchModel {
         return reversedArray;
     }
 
-    /*
-     * Utility method to reverse a string.
-     *
-     * @param charArray A String to reverse.
-     *
-     * @returns An String identical to that passed as argument but with characters
-     * in reverse order.
-     */
+    // Utility method to reverse a string
     private String reverse(String str) {
         StringBuilder reversedString = new StringBuilder();
 
