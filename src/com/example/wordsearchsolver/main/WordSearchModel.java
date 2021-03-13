@@ -9,7 +9,7 @@ package com.example.wordsearchsolver.main;
  * grid the word exists.
  */
 public class WordSearchModel {
-    private char[][] grid;
+    private final char[][] grid;
 
     private WordSearchModel(int rows, int columns) {
         grid = initialiseGrid(rows, columns);
@@ -57,7 +57,7 @@ public class WordSearchModel {
     }
 
     /*
-     * Get the value in word search at location given by row-coloumn.
+     * Get the value in word search at location given by row-column.
      *
      * @param row An int representing the row of the location
      * @param column An int representing the column of the location
