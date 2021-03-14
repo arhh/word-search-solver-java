@@ -1,8 +1,7 @@
-import com.example.wordsearchsolver.main.WordSearchModel;
+import com.example.wordsearchsolver.main.model.WordSearchModel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.security.UnresolvedPermission;
 import java.util.Random;
 
 import static org.junit.Assert.*;
