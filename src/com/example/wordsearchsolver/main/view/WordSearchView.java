@@ -5,15 +5,22 @@ import java.awt.*;
 
 public class WordSearchView extends JFrame {
     private WordSearchView() {
-        super("<frame title>");
-        this.setSize(320, 240);
+        super("Word Search Solver (Java Edition)");
+        this.setSize(640, 480);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel p = new JPanel();
-        p.setLayout(new FlowLayout());
+
+        JPanel pnl = new JPanel();
+        pnl.setLayout(null);
+
         JButton b = new JButton("quit");
-        b.setBounds(120, 50, 100, 35);
-        p.add(b);
-        this.add(p);
+        b.setBounds(220, 400, 100, 35);
+        pnl.add(b);
+
+        JLabel txt = new JLabel("test text...");
+        txt.setBounds(220, 100, 100, 35);
+        pnl.add(txt);
+
+        this.add(pnl);
         this.setVisible(true);
     }
 
