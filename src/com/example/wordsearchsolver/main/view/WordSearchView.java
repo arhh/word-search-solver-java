@@ -4,24 +4,55 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WordSearchView extends JFrame {
+    private static final String APP_TITLE = "Word Search Solver (Java Edition)";
+
+    // Application setup UI
+    private final JPanel appConfigPanel = new JPanel();
+    private final JLabel rowInputLabel = new JLabel("Rows:");
+    private final JLabel columnInputLabel = new JLabel("Columns:");
+    private final JTextField rowInputField = new JTextField(10);
+    private final JTextField columnInputField = new JTextField(10);
+    private final JButton applySetupButton = new JButton("Apply");
+
+    // Word Search grid rendering
+    private final JPanel wordSearchGridPanel = new JPanel();
+    private final JTextField wordSearchCell = new JTextField(10);
+
+    // Words to find UI
+    private final JPanel wordsToFindPanel = new JPanel();
+    private final JLabel wordsToFinalInputLabel = new JLabel("Words to find (separate with whitespace):");
+    private final JTextField wordsToFindInputField = new JTextField(10);
+    private final JButton findWordsButton = new JButton("Search");
+
     private WordSearchView() {
-        super("Word Search Solver (Java Edition)");
-        this.setSize(640, 480);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super(APP_TITLE);
 
-        JPanel pnl = new JPanel();
-        pnl.setLayout(null);
+        // Setup window
+        setSize(640, 480);
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JButton b = new JButton("quit");
-        b.setBounds(220, 400, 100, 35);
-        pnl.add(b);
+        // Application setup UI
+        appConfigPanel.add(rowInputLabel);
+        appConfigPanel.add(rowInputField);
+        appConfigPanel.add(columnInputLabel);
+        appConfigPanel.add(columnInputField);
+        appConfigPanel.add(applySetupButton);
+        add(appConfigPanel);
 
-        JLabel txt = new JLabel("test text...");
-        txt.setBounds(220, 100, 100, 35);
-        pnl.add(txt);
+        // Word Search grid rendering
+//        wordSearchCell.setColumns(1);
+        wordSearchGridPanel.add(wordSearchCell);
+        add(wordSearchGridPanel);
 
-        this.add(pnl);
-        this.setVisible(true);
+        // Words to find UI
+        wordsToFindPanel.add(wordsToFinalInputLabel);
+        wordsToFindPanel.add(wordsToFindInputField);
+        wordsToFindPanel.add(findWordsButton);
+        add(wordsToFindPanel);
+
+        setVisible(true);
     }
 
     public static WordSearchView createWordSearchView() {
