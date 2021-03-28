@@ -75,6 +75,14 @@ public class WordSearchModel {
         return cellItem;
     }
 
+    public int getRowCount() {
+        return grid.length;
+    }
+
+    public int getColumnCount() {
+        return grid[0].length;
+    }
+
     /*
      * Return a string representation of this word search.
      *

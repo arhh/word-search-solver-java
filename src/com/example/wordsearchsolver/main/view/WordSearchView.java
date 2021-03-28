@@ -1,8 +1,12 @@
 package com.example.wordsearchsolver.main.view;
 
+import com.example.wordsearchsolver.main.model.WordSearchModel;
 import com.example.wordsearchsolver.main.view.components.Button;
+import com.example.wordsearchsolver.main.view.components.TextField;
+import org.w3c.dom.Text;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,25 +20,28 @@ public class WordSearchView extends JFrame implements ActionListener {
     private final JPanel appConfigPanel = new JPanel();
     private final JLabel rowInputLabel = new JLabel("Rows:");
     private final JLabel columnInputLabel = new JLabel("Columns:");
-    private final JTextField rowInputField = new JTextField(10);
-    private final JTextField columnInputField = new JTextField(10);
+    private final TextField rowInputField = TextField.createTextField(10, "Max 15");
+    private final TextField columnInputField = TextField.createTextField(10, "Max 15");
     private final Button applySetupButton = Button.createButton("Apply", APPLY_SETUP, this);
 
     // Word Search grid rendering
     private final JPanel wordSearchGridPanel = new JPanel();
-    private final JTextField wordSearchCell = new JTextField(10);
 
     // Words to find UI
     private final JPanel wordsToFindPanel = new JPanel();
     private final JLabel wordsToFinalInputLabel = new JLabel("Words to find (separate with whitespace):");
-    private final JTextField wordsToFindInputField = new JTextField(10);
+    private final TextField wordsToFindInputField = TextField.createTextField(10);
     private final Button findWordsButton = Button.createButton("Search", FIND_WORDS, this);
+
+    private WordSearchModel model;
+
+    private TextField[] gridCells;
 
     private WordSearchView() {
         super(APP_TITLE);
 
         // Setup window
-        setSize(640, 480);
+        setSize(480, 640);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 //        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,8 +56,6 @@ public class WordSearchView extends JFrame implements ActionListener {
         add(appConfigPanel);
 
         // Word Search grid rendering
-        wordSearchGridPanel.add(wordSearchCell);
-        wordSearchGridPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         add(wordSearchGridPanel);
 
         // Words to find UI
@@ -76,12 +81,61 @@ public class WordSearchView extends JFrame implements ActionListener {
         switch (actionEvent.getActionCommand()) {
             case APPLY_SETUP:
                 System.out.println("Will apply setup...");
+                handleSetup();
                 break;
             case FIND_WORDS:
                 System.out.println("Will find words...");
+                findWords();
                 break;
             default:
                 System.out.println("Unknown event object received");
         }
+    }
+
+    private void handleSetup() {
+        int rowCount;
+        int columnCount;
+        try {
+            rowCount = Integer.parseInt(rowInputField.getText());
+            columnCount = Integer.parseInt(columnInputField.getText());
+        } catch (NumberFormatException e) {
+            rowCount = 0;
+            columnCount = 0;
+        }
+
+        if (rowCount > 0 && columnCount > 0 && rowCount <= 15 && columnCount <= 15) {
+            TextField gridCell;
+            model = WordSearchModel.createWordSearch(rowCount, columnCount);
+            wordSearchGridPanel.setLayout(new GridLayout(rowCount, columnCount, 5, 5));
+            gridCells = new TextField[rowCount * columnCount];
+            for (int cellCounter = 0; cellCounter < rowCount * columnCount; cellCounter++) {
+                gridCell = TextField.createTextField(1);
+                wordSearchGridPanel.add(gridCell);
+                gridCells[cellCounter] = gridCell;
+            }
+            revalidate();
+        }
+    }
+
+    private void findWords() {
+        final int rowCount = model.getRowCount();
+        final int columnCount = model.getColumnCount();
+        for (int cellCounter = 0; cellCounter < gridCells.length; cellCounter++) {
+            model.updateGrid(cellCounter / rowCount, cellCounter % columnCount, gridCells[cellCounter].getText().charAt(0));
+        }
+
+//        final String[] wordsToFind = wordsToFindInputField.getText().split("\\s");
+//        for (String word : wordsToFind) {
+//            int[] matchCoordinates = model.findWord(word);
+//            if (matchCoordinates[0] > -1 && matchCoordinates[1] > -1) {
+//                int gridCellFieldIndex = matchCoordinates[0];
+//                int gridCellFieldCounter = 0;
+//                while (gridCellFieldCounter <= matchCoordinates[1]) {
+//                    gridCellFieldIndex += rowCount;
+//                }
+//                gridCellFieldIndex
+//                TextField matchedWordStartCharacter = gridCells[gridCellFieldIndex];
+//            }
+//        }
     }
 }
