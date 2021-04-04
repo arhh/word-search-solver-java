@@ -35,7 +35,7 @@ public class WordSearchView extends JFrame implements ActionListener {
 
     private WordSearchModel model;
 
-    private JTextField[][] gridCells;
+    private TextField[][] gridCells;
 
     private WordSearchView() {
         super(APP_TITLE);
@@ -113,11 +113,11 @@ public class WordSearchView extends JFrame implements ActionListener {
     }
 
     private void fillGridWithCells(JPanel wordSearchGridPanel, int rowCount, int columnCount) {
-        gridCells = new JTextField[rowCount][columnCount];
-        JTextField gridCell;
+        gridCells = new TextField[rowCount][columnCount];
+        TextField gridCell;
         for (int rowCounter = 0; rowCounter < rowCount; rowCounter++) {
             for (int columnCounter = 0; columnCounter < columnCount; columnCounter++) {
-                gridCell = new JTextField(1);
+                gridCell = TextField.createTextField(1);
                 gridCells[rowCounter][columnCounter] = gridCell;
                 wordSearchGridPanel.add(gridCell);
             }
@@ -138,7 +138,7 @@ public class WordSearchView extends JFrame implements ActionListener {
             int matchingRow = matchCoordinates[0];
             int matchingColumn = matchCoordinates[1];
             if (matchingRow > -1 && matchingColumn > -1) {
-                JTextField matchedWordStartCharacter = gridCells[matchingRow][matchingColumn];
+                TextField matchedWordStartCharacter = gridCells[matchingRow][matchingColumn];
                 matchedWordStartCharacter.setBackground(Color.CYAN);
             }
         }
