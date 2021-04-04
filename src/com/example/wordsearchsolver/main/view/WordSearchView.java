@@ -35,7 +35,7 @@ public class WordSearchView extends JFrame implements ActionListener {
 
     private WordSearchModel model;
 
-    private TextField[] gridCells;
+    private JTextField[][] gridCells;
 
     private WordSearchView() {
         super(APP_TITLE);
@@ -104,38 +104,43 @@ public class WordSearchView extends JFrame implements ActionListener {
         }
 
         if (rowCount > 0 && columnCount > 0 && rowCount <= 15 && columnCount <= 15) {
-            TextField gridCell;
             model = WordSearchModel.createWordSearch(rowCount, columnCount);
+
             wordSearchGridPanel.setLayout(new GridLayout(rowCount, columnCount, 5, 5));
-            gridCells = new TextField[rowCount * columnCount];
-            for (int cellCounter = 0; cellCounter < rowCount * columnCount; cellCounter++) {
-                gridCell = TextField.createTextField(1);
-                wordSearchGridPanel.add(gridCell);
-                gridCells[cellCounter] = gridCell;
-            }
+            fillGridWithCells(wordSearchGridPanel, rowCount, columnCount);
             revalidate();
         }
     }
 
+    private void fillGridWithCells(JPanel wordSearchGridPanel, int rowCount, int columnCount) {
+        gridCells = new JTextField[rowCount][columnCount];
+        JTextField gridCell;
+        for (int rowCounter = 0; rowCounter < rowCount; rowCounter++) {
+            for (int columnCounter = 0; columnCounter < columnCount; columnCounter++) {
+                gridCell = new JTextField(1);
+                gridCells[rowCounter][columnCounter] = gridCell;
+                wordSearchGridPanel.add(gridCell);
+            }
+        }
+    }
+
     private void findWords() {
-        final int rowCount = model.getRowCount();
-        final int columnCount = model.getColumnCount();
-        for (int cellCounter = 0; cellCounter < gridCells.length; cellCounter++) {
-            model.updateGrid(cellCounter / rowCount, cellCounter % columnCount, gridCells[cellCounter].getText().charAt(0));
+        System.out.println(model.toString());
+        for (int rowCounter = 0; rowCounter < gridCells.length; rowCounter++) {
+            for (int columnCounter = 0; columnCounter < gridCells[rowCounter].length; columnCounter++) {
+                model.updateGrid(rowCounter, columnCounter, gridCells[rowCounter][columnCounter].getText().charAt(0));
+            }
         }
 
-//        final String[] wordsToFind = wordsToFindInputField.getText().split("\\s");
-//        for (String word : wordsToFind) {
-//            int[] matchCoordinates = model.findWord(word);
-//            if (matchCoordinates[0] > -1 && matchCoordinates[1] > -1) {
-//                int gridCellFieldIndex = matchCoordinates[0];
-//                int gridCellFieldCounter = 0;
-//                while (gridCellFieldCounter <= matchCoordinates[1]) {
-//                    gridCellFieldIndex += rowCount;
-//                }
-//                gridCellFieldIndex
-//                TextField matchedWordStartCharacter = gridCells[gridCellFieldIndex];
-//            }
-//        }
+        final String[] wordsToFind = wordsToFindInputField.getText().split("\\s");
+        for (String word : wordsToFind) {
+            int[] matchCoordinates = model.findWord(word);
+            int matchingRow = matchCoordinates[0];
+            int matchingColumn = matchCoordinates[1];
+            if (matchingRow > -1 && matchingColumn > -1) {
+                JTextField matchedWordStartCharacter = gridCells[matchingRow][matchingColumn];
+                matchedWordStartCharacter.setBackground(Color.CYAN);
+            }
+        }
     }
 }
