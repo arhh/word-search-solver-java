@@ -80,11 +80,9 @@ public class WordSearchView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         switch (actionEvent.getActionCommand()) {
             case APPLY_SETUP:
-                System.out.println("Will apply setup...");
                 handleSetup();
                 break;
             case FIND_WORDS:
-                System.out.println("Will find words...");
                 findWords();
                 break;
             default:
@@ -106,7 +104,7 @@ public class WordSearchView extends JFrame implements ActionListener {
         if (rowCount > 0 && columnCount > 0 && rowCount <= 15 && columnCount <= 15) {
             model = WordSearchModel.createWordSearch(rowCount, columnCount);
 
-            wordSearchGridPanel.setLayout(new GridLayout(rowCount, columnCount, 5, 5));
+            wordSearchGridPanel.setLayout(new GridBagLayout());
             fillGridWithCells(wordSearchGridPanel, rowCount, columnCount);
             revalidate();
         }
@@ -114,12 +112,18 @@ public class WordSearchView extends JFrame implements ActionListener {
 
     private void fillGridWithCells(JPanel wordSearchGridPanel, int rowCount, int columnCount) {
         gridCells = new TextField[rowCount][columnCount];
+        GridBagConstraints cellConstraints;
         TextField gridCell;
         for (int rowCounter = 0; rowCounter < rowCount; rowCounter++) {
             for (int columnCounter = 0; columnCounter < columnCount; columnCounter++) {
                 gridCell = TextField.createTextField(1);
+                gridCell.setPreferredSize(new Dimension(30, 30));
                 gridCells[rowCounter][columnCounter] = gridCell;
-                wordSearchGridPanel.add(gridCell);
+
+                cellConstraints = new GridBagConstraints();
+                cellConstraints.gridx = rowCounter;
+                cellConstraints.gridy = columnCounter;
+                wordSearchGridPanel.add(gridCell, cellConstraints);
             }
         }
     }
