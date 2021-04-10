@@ -41,9 +41,9 @@ public class WordSearchView extends JFrame implements ActionListener {
         super(APP_TITLE);
 
         // Setup window
-        setSize(480, 640);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-//        setResizable(false);
+        setSize(560, 640);
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Application setup UI
@@ -56,6 +56,7 @@ public class WordSearchView extends JFrame implements ActionListener {
         add(appConfigPanel);
 
         // Word Search grid rendering
+        wordSearchGridPanel.setLayout(new GridBagLayout());
         add(wordSearchGridPanel);
 
         // Words to find UI
@@ -104,9 +105,10 @@ public class WordSearchView extends JFrame implements ActionListener {
         if (rowCount > 0 && columnCount > 0 && rowCount <= 15 && columnCount <= 15) {
             model = WordSearchModel.createWordSearch(rowCount, columnCount);
 
-            wordSearchGridPanel.setLayout(new GridBagLayout());
+            wordSearchGridPanel.removeAll();
             fillGridWithCells(wordSearchGridPanel, rowCount, columnCount);
-            revalidate();
+            wordSearchGridPanel.revalidate();
+            wordSearchGridPanel.repaint();
         }
     }
 
@@ -117,12 +119,14 @@ public class WordSearchView extends JFrame implements ActionListener {
         for (int rowCounter = 0; rowCounter < rowCount; rowCounter++) {
             for (int columnCounter = 0; columnCounter < columnCount; columnCounter++) {
                 gridCell = TextField.createTextField(1);
-                gridCell.setPreferredSize(new Dimension(30, 30));
+                gridCell.setHorizontalAlignment(JTextField.CENTER);
                 gridCells[rowCounter][columnCounter] = gridCell;
 
                 cellConstraints = new GridBagConstraints();
                 cellConstraints.gridx = rowCounter;
                 cellConstraints.gridy = columnCounter;
+                cellConstraints.ipadx = 15;
+                cellConstraints.ipady = 15;
                 wordSearchGridPanel.add(gridCell, cellConstraints);
             }
         }
