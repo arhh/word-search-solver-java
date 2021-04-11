@@ -3,35 +3,48 @@ package com.example.wordsearchsolver.main.view;
 import com.example.wordsearchsolver.main.model.WordSearchModel;
 import com.example.wordsearchsolver.main.view.components.Button;
 import com.example.wordsearchsolver.main.view.components.TextField;
-import org.w3c.dom.Text;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WordSearchView extends JFrame implements ActionListener {
     private static final String APP_TITLE = "Word Search Solver (Java Edition)";
-    private static final String APPLY_SETUP = "APPLY_SETUP";
-    private static final String FIND_WORDS = "FIND_WORDS";
+
+    private static final String APPLY_SETUP_ACTION_COMMAND = "APPLY_SETUP";
+    private static final String APPLY_SETUP_BUTTON_TEXT = "Apply";
+
+    private static final String FIND_WORDS_ACTION_COMMAND = "FIND_WORDS";
+    private static final String FIND_WORDS_BUTTON_TEXT = "Search";
+
+    private static final String ROW_INPUT_LABEL_TEXT = "Rows:";
+    private static final String ROW_INPUT_LABEL_TOOLTIP = "Max 15";
+    private static final int ROW_INPUT_COLUMN = 10;
+    private static final int COLUMN_INPUT_COLUMN = 10;
+    private static final String COLUMN_INPUT_LABEL_TOOLTIP = "Max 15";
+    private static final String COLUMN_INPUT_LABEL_TEXT = "Columns:";
+
+    private static final String WORDS_TO_FIND_INPUT_LABEL_TEXT = "Words to find (separate with whitespace):";
+    private static final int WORDS_TO_FIND_INPUT_COLUMN = 10;
+
 
     // Application setup UI
     private final JPanel appConfigPanel = new JPanel();
-    private final JLabel rowInputLabel = new JLabel("Rows:");
-    private final JLabel columnInputLabel = new JLabel("Columns:");
-    private final TextField rowInputField = TextField.createTextField(10, "Max 15");
-    private final TextField columnInputField = TextField.createTextField(10, "Max 15");
-    private final Button applySetupButton = Button.createButton("Apply", APPLY_SETUP, this);
+    private final JLabel rowInputLabel = new JLabel(ROW_INPUT_LABEL_TEXT);
+    private final JLabel columnInputLabel = new JLabel(COLUMN_INPUT_LABEL_TEXT);
+    private final TextField rowInputField = TextField.createTextField(ROW_INPUT_COLUMN, ROW_INPUT_LABEL_TOOLTIP);
+    private final TextField columnInputField = TextField.createTextField(COLUMN_INPUT_COLUMN, COLUMN_INPUT_LABEL_TOOLTIP);
+    private final Button applySetupButton = Button.createButton(APPLY_SETUP_BUTTON_TEXT, APPLY_SETUP_ACTION_COMMAND, this);
 
     // Word Search grid rendering
     private final JPanel wordSearchGridPanel = new JPanel();
 
     // Words to find UI
     private final JPanel wordsToFindPanel = new JPanel();
-    private final JLabel wordsToFinalInputLabel = new JLabel("Words to find (separate with whitespace):");
-    private final TextField wordsToFindInputField = TextField.createTextField(10);
-    private final Button findWordsButton = Button.createButton("Search", FIND_WORDS, this);
+    private final JLabel wordsToFinalInputLabel = new JLabel(WORDS_TO_FIND_INPUT_LABEL_TEXT);
+    private final TextField wordsToFindInputField = TextField.createTextField(WORDS_TO_FIND_INPUT_COLUMN);
+    private final Button findWordsButton = Button.createButton(FIND_WORDS_BUTTON_TEXT, FIND_WORDS_ACTION_COMMAND, this);
 
     private WordSearchModel model;
 
@@ -80,14 +93,14 @@ public class WordSearchView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         switch (actionEvent.getActionCommand()) {
-            case APPLY_SETUP:
+            case "APPLY_SETUP":
                 handleSetup();
                 break;
-            case FIND_WORDS:
+            case "FIND_WORDS":
                 findWords();
                 break;
             default:
-                System.out.println("Unknown event object received");
+                System.err.println("Invalid action command: " + actionEvent.getActionCommand());
         }
     }
 
