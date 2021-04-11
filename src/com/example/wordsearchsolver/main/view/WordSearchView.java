@@ -28,6 +28,11 @@ public class WordSearchView extends JFrame implements ActionListener {
     private static final String WORDS_TO_FIND_INPUT_LABEL_TEXT = "Words to find (separate with whitespace):";
     private static final int WORDS_TO_FIND_INPUT_COLUMN = 10;
 
+    private static final int MIN_COLUMNS = 1;
+    private static final int MAX_COLUMNS = 15;
+    private static final int MIN_ROWS = 1;
+    private static final int MAX_ROWS = 15;
+
 
     // Application setup UI
     private final JPanel appConfigPanel = new JPanel();
@@ -43,7 +48,7 @@ public class WordSearchView extends JFrame implements ActionListener {
     // Words to find UI
     private final JPanel wordsToFindPanel = new JPanel();
     private final JLabel wordsToFinalInputLabel = new JLabel(WORDS_TO_FIND_INPUT_LABEL_TEXT);
-    private final TextField wordsToFindInputField = TextField.createTextField(WORDS_TO_FIND_INPUT_COLUMN);
+    private final TextField wordsToFindInputField = TextField.createTextField();
     private final Button findWordsButton = Button.createButton(FIND_WORDS_BUTTON_TEXT, FIND_WORDS_ACTION_COMMAND, this);
 
     private WordSearchModel model;
@@ -56,7 +61,7 @@ public class WordSearchView extends JFrame implements ActionListener {
         // Setup window
         setSize(560, 640);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        setResizable(false);
+//        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Application setup UI
@@ -73,12 +78,11 @@ public class WordSearchView extends JFrame implements ActionListener {
         add(wordSearchGridPanel);
 
         // Words to find UI
+        wordsToFindPanel.setLayout(new GridLayout(3, 1));
         wordsToFindPanel.add(wordsToFinalInputLabel);
         wordsToFindPanel.add(wordsToFindInputField);
         wordsToFindPanel.add(findWordsButton);
-        wordsToFindPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         add(wordsToFindPanel);
-
         setVisible(true);
     }
 
@@ -104,6 +108,13 @@ public class WordSearchView extends JFrame implements ActionListener {
         }
     }
 
+    /*
+     * Create a new word search grid for the user to populate.
+     *
+     * If a grid was already on screen, this function will discard it.
+     * The user's preference for rows and columns is processed here and if the user supplies
+     * values above the limit, they will be ignored.
+     */
     private void handleSetup() {
         int rowCount;
         int columnCount;
@@ -111,21 +122,26 @@ public class WordSearchView extends JFrame implements ActionListener {
             rowCount = Integer.parseInt(rowInputField.getText());
             columnCount = Integer.parseInt(columnInputField.getText());
         } catch (NumberFormatException e) {
-            rowCount = 0;
-            columnCount = 0;
+            rowCount = 1;
+            columnCount = 1;
         }
 
-        if (rowCount > 0 && columnCount > 0 && rowCount <= 15 && columnCount <= 15) {
+        if (rowCount > MIN_ROWS && columnCount > MIN_COLUMNS && rowCount <= MAX_ROWS && columnCount <= MAX_ROWS) {
             model = WordSearchModel.createWordSearch(rowCount, columnCount);
 
             wordSearchGridPanel.removeAll();
             fillGridWithCells(wordSearchGridPanel, rowCount, columnCount);
-            wordSearchGridPanel.revalidate();
-            wordSearchGridPanel.repaint();
+            revalidate();
+            repaint();
         }
     }
 
+    /*
+     * Instantiate an instance of the word search grid model and display it on screen.
+     */
     private void fillGridWithCells(JPanel wordSearchGridPanel, int rowCount, int columnCount) {
+        final int cellPadding = 15;
+
         gridCells = new TextField[rowCount][columnCount];
         GridBagConstraints cellConstraints;
         TextField gridCell;
@@ -138,13 +154,18 @@ public class WordSearchView extends JFrame implements ActionListener {
                 cellConstraints = new GridBagConstraints();
                 cellConstraints.gridx = rowCounter;
                 cellConstraints.gridy = columnCounter;
-                cellConstraints.ipadx = 15;
-                cellConstraints.ipady = 15;
+                cellConstraints.ipadx = cellPadding;
+                cellConstraints.ipady = cellPadding;
                 wordSearchGridPanel.add(gridCell, cellConstraints);
             }
         }
     }
 
+    /*
+     * Request the word search model to search for the words the user has requested. The model
+     * will return the start coordinates of each word that was found, with which the UI highlights
+     * this to the user.
+     */
     private void findWords() {
         System.out.println(model.toString());
         for (int rowCounter = 0; rowCounter < gridCells.length; rowCounter++) {
@@ -153,6 +174,7 @@ public class WordSearchView extends JFrame implements ActionListener {
             }
         }
 
+        // List of words to find are separated by whitespace, hence regex to extract each word
         final String[] wordsToFind = wordsToFindInputField.getText().split("\\s");
         for (String word : wordsToFind) {
             int[] matchCoordinates = model.findWord(word);
