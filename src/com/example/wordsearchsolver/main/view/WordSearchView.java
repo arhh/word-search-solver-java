@@ -61,7 +61,7 @@ public class WordSearchView extends JFrame implements ActionListener {
         // Setup window
         setSize(560, 640);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-//        setResizable(false);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Application setup UI
