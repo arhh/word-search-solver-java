@@ -29,10 +29,9 @@ jobs:
       - uses: actions/checkout@v2
       
       # Setup Java environment
+      - name: Run test class
       - uses: actions/setup-java@v2
         with:
-          distribution: 'adopt' # See 'Supported distributions' for available options
+          distribution: 'adopt'
           java-version: '11'
-          
-      - name: Run test class
       - run: java -cp word-search-solver-java -ea WordSearchModelTest
