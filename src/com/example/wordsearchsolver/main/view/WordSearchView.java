@@ -2,9 +2,11 @@ package com.example.wordsearchsolver.main.view;
 
 import com.example.wordsearchsolver.main.model.WordSearchModel;
 import com.example.wordsearchsolver.main.view.components.Button;
+import com.example.wordsearchsolver.main.view.components.FormattedTextField;
 import com.example.wordsearchsolver.main.view.components.TextField;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +28,8 @@ public class WordSearchView extends JFrame implements ActionListener {
     private static final String COLUMN_INPUT_LABEL_TEXT = "Columns:";
 
     private static final String WORDS_TO_FIND_INPUT_LABEL_TEXT = "Words to find (separate with whitespace):";
-    private static final int WORDS_TO_FIND_INPUT_COLUMN = 10;
 
     private static final int MIN_COLUMNS = 1;
-    private static final int MAX_COLUMNS = 15;
     private static final int MIN_ROWS = 1;
     private static final int MAX_ROWS = 15;
 
@@ -38,8 +38,8 @@ public class WordSearchView extends JFrame implements ActionListener {
     private final JPanel appConfigPanel = new JPanel();
     private final JLabel rowInputLabel = new JLabel(ROW_INPUT_LABEL_TEXT);
     private final JLabel columnInputLabel = new JLabel(COLUMN_INPUT_LABEL_TEXT);
-    private final TextField rowInputField = TextField.createTextField(ROW_INPUT_COLUMN, ROW_INPUT_LABEL_TOOLTIP);
-    private final TextField columnInputField = TextField.createTextField(COLUMN_INPUT_COLUMN, COLUMN_INPUT_LABEL_TOOLTIP);
+    private final FormattedTextField rowInputField = FormattedTextField.createFormattedTextFieldWithMask("##", 2);
+    private final FormattedTextField columnInputField = FormattedTextField.createFormattedTextFieldWithMask("##", 2);
     private final Button applySetupButton = Button.createButton(APPLY_SETUP_BUTTON_TEXT, APPLY_SETUP_ACTION_COMMAND, this);
 
     // Word Search grid rendering
