@@ -37,8 +37,8 @@ public class WordSearchView extends JFrame implements ActionListener {
     private final JPanel appConfigPanel = new JPanel();
     private final JLabel rowInputLabel = new JLabel(ROW_INPUT_LABEL_TEXT);
     private final JLabel columnInputLabel = new JLabel(COLUMN_INPUT_LABEL_TEXT);
-    private final FormattedTextField rowInputField = FormattedTextField.createFormattedTextFieldWithMask("##", 2);
-    private final FormattedTextField columnInputField = FormattedTextField.createFormattedTextFieldWithMask("##", 2);
+    private final FormattedTextField rowInputField = FormattedTextField.createBoundedNumericalTextField(1, 15, 2);
+    private final FormattedTextField columnInputField = FormattedTextField.createBoundedNumericalTextField(1, 15, 2);
     private final Button applySetupButton = Button.createButton(APPLY_SETUP_BUTTON_TEXT, APPLY_SETUP_ACTION_COMMAND, this);
 
     // Word Search grid rendering
