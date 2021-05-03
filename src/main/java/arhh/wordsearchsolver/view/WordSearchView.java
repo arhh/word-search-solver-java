@@ -1,12 +1,11 @@
-package com.example.wordsearchsolver.main.view;
+package arhh.wordsearchsolver.view;
 
-import com.example.wordsearchsolver.main.model.WordSearchModel;
-import com.example.wordsearchsolver.main.view.components.Button;
-import com.example.wordsearchsolver.main.view.components.FormattedTextField;
-import com.example.wordsearchsolver.main.view.components.TextField;
+import arhh.wordsearchsolver.model.WordSearchModel;
+import arhh.wordsearchsolver.view.components.Button;
+import arhh.wordsearchsolver.view.components.FormattedTextField;
+import arhh.wordsearchsolver.view.components.TextField;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package com.example.wordsearchsolver.main.view.components;
+package arhh.wordsearchsolver.view.components;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
