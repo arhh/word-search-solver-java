@@ -9,14 +9,14 @@ import java.util.Random;
 import static org.junit.Assert.*;
 
 public class WordSearchModelTest {
-    private static final String LEFT_RIGHT = "";
-    private static final String RIGHT_LEFT = "";
-    private static final String UP_DOWN = "";
-    private static final String DOWN_UP = "";
-    private static final String DOWN_RIGHT = "";
-    private static final String DOWN_LEFT = "";
-    private static final String UP_RIGHT = "";
-    private static final String UP_LEFT = "";
+    private static final String LEFT_RIGHT = "plot";
+    private static final String RIGHT_LEFT = "couple";
+    private static final String UP_DOWN = "board";
+    private static final String DOWN_UP = "extern";
+    private static final String DOWN_RIGHT = "pebble";
+    private static final String DOWN_LEFT = "eraser";
+    private static final String UP_RIGHT = "woody";
+    private static final String UP_LEFT = "plastic";
 
     private static final int ROWS = 10;
     private static final int COLUMNS = 15;
