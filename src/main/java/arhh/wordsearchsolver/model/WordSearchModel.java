@@ -1,4 +1,4 @@
-package com.example.wordsearchsolver.main.model;
+package arhh.wordsearchsolver.model;
 
 /*
  * Class representing a word search.

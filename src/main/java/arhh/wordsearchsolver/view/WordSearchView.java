@@ -1,8 +1,9 @@
-package com.example.wordsearchsolver.main.view;
+package arhh.wordsearchsolver.view;
 
-import com.example.wordsearchsolver.main.model.WordSearchModel;
-import com.example.wordsearchsolver.main.view.components.Button;
-import com.example.wordsearchsolver.main.view.components.TextField;
+import arhh.wordsearchsolver.model.WordSearchModel;
+import arhh.wordsearchsolver.view.components.Button;
+import arhh.wordsearchsolver.view.components.FormattedTextField;
+import arhh.wordsearchsolver.view.components.TextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,10 +27,8 @@ public class WordSearchView extends JFrame implements ActionListener {
     private static final String COLUMN_INPUT_LABEL_TEXT = "Columns:";
 
     private static final String WORDS_TO_FIND_INPUT_LABEL_TEXT = "Words to find (separate with whitespace):";
-    private static final int WORDS_TO_FIND_INPUT_COLUMN = 10;
 
     private static final int MIN_COLUMNS = 1;
-    private static final int MAX_COLUMNS = 15;
     private static final int MIN_ROWS = 1;
     private static final int MAX_ROWS = 15;
 
@@ -38,8 +37,8 @@ public class WordSearchView extends JFrame implements ActionListener {
     private final JPanel appConfigPanel = new JPanel();
     private final JLabel rowInputLabel = new JLabel(ROW_INPUT_LABEL_TEXT);
     private final JLabel columnInputLabel = new JLabel(COLUMN_INPUT_LABEL_TEXT);
-    private final TextField rowInputField = TextField.createTextField(ROW_INPUT_COLUMN, ROW_INPUT_LABEL_TOOLTIP);
-    private final TextField columnInputField = TextField.createTextField(COLUMN_INPUT_COLUMN, COLUMN_INPUT_LABEL_TOOLTIP);
+    private final FormattedTextField rowInputField = FormattedTextField.createBoundedNumericalTextField(1, 15, 2);
+    private final FormattedTextField columnInputField = FormattedTextField.createBoundedNumericalTextField(1, 15, 2);
     private final Button applySetupButton = Button.createButton(APPLY_SETUP_BUTTON_TEXT, APPLY_SETUP_ACTION_COMMAND, this);
 
     // Word Search grid rendering
@@ -88,10 +87,6 @@ public class WordSearchView extends JFrame implements ActionListener {
 
     public static WordSearchView createWordSearchView() {
         return new WordSearchView();
-    }
-
-    public static void main(String[] args) {
-        WordSearchView a = createWordSearchView();
     }
 
     @Override

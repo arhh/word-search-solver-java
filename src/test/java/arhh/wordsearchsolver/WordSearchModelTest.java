@@ -1,4 +1,6 @@
-import com.example.wordsearchsolver.main.model.WordSearchModel;
+package arhh.wordsearchsolver;
+
+import arhh.wordsearchsolver.model.WordSearchModel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
