@@ -89,10 +89,6 @@ public class WordSearchView extends JFrame implements ActionListener {
         return new WordSearchView();
     }
 
-    public static void main(String[] args) {
-        WordSearchView a = createWordSearchView();
-    }
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         switch (actionEvent.getActionCommand()) {
