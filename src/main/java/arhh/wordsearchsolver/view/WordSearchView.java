@@ -20,10 +20,6 @@ public class WordSearchView extends JFrame implements ActionListener {
     private static final String FIND_WORDS_BUTTON_TEXT = "Search";
 
     private static final String ROW_INPUT_LABEL_TEXT = "Rows:";
-    private static final String ROW_INPUT_LABEL_TOOLTIP = "Max 15";
-    private static final int ROW_INPUT_COLUMN = 10;
-    private static final int COLUMN_INPUT_COLUMN = 10;
-    private static final String COLUMN_INPUT_LABEL_TOOLTIP = "Max 15";
     private static final String COLUMN_INPUT_LABEL_TEXT = "Columns:";
 
     private static final String WORDS_TO_FIND_INPUT_LABEL_TEXT = "Words to find (separate with whitespace):";
@@ -162,7 +158,6 @@ public class WordSearchView extends JFrame implements ActionListener {
      * this to the user.
      */
     private void findWords() {
-        System.out.println(model.toString());
         for (int rowCounter = 0; rowCounter < gridCells.length; rowCounter++) {
             for (int columnCounter = 0; columnCounter < gridCells[rowCounter].length; columnCounter++) {
                 model.updateGrid(rowCounter, columnCounter, gridCells[rowCounter][columnCounter].getText().charAt(0));
