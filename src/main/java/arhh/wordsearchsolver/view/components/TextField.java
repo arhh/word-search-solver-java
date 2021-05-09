@@ -17,10 +17,10 @@ public class TextField extends JTextField {
     }
 
     public static TextField createTextField() {
-        return new TextField(-1, null);
+        return TextField.createTextField(-1, null);
     }
 
     public static TextField createTextField(int columns) {
-        return new TextField(columns, null);
+        return TextField.createTextField(columns, null);
     }
 }
