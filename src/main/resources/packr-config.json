@@ -1,0 +1,10 @@
+{
+  "platform": "windows64",
+  "jdk": "/usr/lib/jvm/default-java",
+  "executable": "word-search-solver-java",
+  "classpath": [
+    "./target/word-search-solver-java-1.0-SNAPSHOT.jar"
+  ],
+  "mainclass": "arhh.wordsearchsolver.Main",
+  "output": "./dist"
+}
