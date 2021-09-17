@@ -1,5 +1,5 @@
 {
-  "platform": "windows64",
+  "platform": "linux",
   "jdk": "/usr/lib/jvm/default-java",
   "executable": "word-search-solver-java",
   "classpath": [
