@@ -1,0 +1,10 @@
+{
+  "platform": "linux64",
+  "jdk": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz",
+  "executable": "word-search-solver-java",
+  "classpath": [
+    "./target/word-search-solver-java-1.0-SNAPSHOT.jar"
+  ],
+  "mainclass": "arhh.wordsearchsolver.Main",
+  "output": "./dist"
+}
