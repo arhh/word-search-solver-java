@@ -40,7 +40,6 @@ public class Packager {
         config.vmArgs = List.of("");
         config.jrePath = "jre";
         config.verbose = true;
-        config.cacheJre = new File("./cache");
 
         return config;
     }
