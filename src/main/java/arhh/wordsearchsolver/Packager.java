@@ -39,7 +39,6 @@ public class Packager {
         // NullPointerException if these not set (as of Packr v4.0.0)
         config.vmArgs = List.of("");
         config.jrePath = "jre";
-        config.verbose = true;
 
         return config;
     }
