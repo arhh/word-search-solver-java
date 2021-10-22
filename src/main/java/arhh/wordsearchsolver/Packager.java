@@ -11,8 +11,14 @@ public class Packager {
     public static void main(String[] args) throws CompressorException, IOException, ArchiveException {
         PackrConfig[] packrConfigs = {generatePackrConfig(PackrConfig.Platform.Linux64), generatePackrConfig(PackrConfig.Platform.MacOS), generatePackrConfig(PackrConfig.Platform.Windows64)};
 
+        File distFile = new File("./dist");
+        deleteOutDir(distFile);
         for (PackrConfig packrConfig : packrConfigs) {
-            new Packr().pack(packrConfig);
+            if (new File(packrConfig.classpath.get(0)).exists()) {
+                new Packr().pack(packrConfig);
+            } else {
+                throw new FileNotFoundException(String.format("The path specified for Packr classpath ('%s') does not exist", packrConfig.classpath.get(0)));
+            }
         }
     }
 
@@ -41,5 +47,22 @@ public class Packager {
         config.jrePath = "jre";
 
         return config;
+    }
+
+    private static void deleteOutDir(final File outDir) {
+        try {
+            if (outDir.isFile() || outDir.isDirectory() && outDir.list().length == 0) {
+                System.out.println("Deleting: " + outDir);
+                outDir.delete();
+            } else {
+                for (File file : outDir.listFiles()) {
+                    System.out.println("Stepping into directory: " + file);
+                    deleteOutDir(file);
+                }
+                deleteOutDir(outDir);
+            }
+        } catch (NullPointerException e) {
+            System.out.printf("Empty file at the following path: %s.\n Nothing to delete%n", outDir);
+        }
     }
 }
