@@ -12,7 +12,9 @@ public class Packager {
         PackrConfig[] packrConfigs = {generatePackrConfig(PackrConfig.Platform.Linux64), generatePackrConfig(PackrConfig.Platform.MacOS), generatePackrConfig(PackrConfig.Platform.Windows64)};
 
         File distFile = new File("./dist");
-        deleteOutDir(distFile);
+        if (distFile.exists()) {
+            deleteOutDir(distFile);
+        }
         for (PackrConfig packrConfig : packrConfigs) {
             if (new File(packrConfig.classpath.get(0)).exists()) {
                 new Packr().pack(packrConfig);
@@ -52,17 +54,15 @@ public class Packager {
     private static void deleteOutDir(final File outDir) {
         try {
             if (outDir.isFile() || outDir.isDirectory() && outDir.list().length == 0) {
-                System.out.println("Deleting: " + outDir);
                 outDir.delete();
             } else {
                 for (File file : outDir.listFiles()) {
-                    System.out.println("Stepping into directory: " + file);
                     deleteOutDir(file);
                 }
                 deleteOutDir(outDir);
             }
         } catch (NullPointerException e) {
-            System.out.printf("Empty file at the following path: %s.\n Nothing to delete%n", outDir);
+            System.err.printf("Error at file: %s.\nNothing to delete.\nException details:\n%s", outDir, e.getMessage());
         }
     }
 }
