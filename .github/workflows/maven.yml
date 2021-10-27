@@ -24,8 +24,18 @@ jobs:
         distribution: 'adopt'
     - name: Build and Test with Maven
       run: mvn -B package --file pom.xml
-    - name: Publish Build Artefacts
+    - name: Publish Windows Executable
       uses: actions/upload-artifact@v2
       with:
-        name: executables
-        path: dist    
+        name: Windows64
+        path: dist/Windows64
+    - name: Publish macOS Executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: MacOS
+        path: dist/MacOS
+    - name: Publish Linux Executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: Linux64
+        path: dist/Linux64
