@@ -7,6 +7,11 @@
       <option name="url" value="http://artifactory.nimblygames.com/artifactory/ng-public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="ng-public-snapshot" />
+      <option name="name" value="ng-public-snapshot" />
+      <option name="url" value="https://artifactory.nimblygames.com/artifactory/ng-public-snapshot/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
@@ -30,6 +35,11 @@
       <option name="id" value="ng-public-release" />
       <option name="name" value="ng-public-release" />
       <option name="url" value="http://artifactory.nimblygames.com/artifactory/ng-public-release/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ng-public-release" />
+      <option name="name" value="ng-public-release" />
+      <option name="url" value="https://artifactory.nimblygames.com/artifactory/ng-public-release/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="ng-public-snapshot" />
