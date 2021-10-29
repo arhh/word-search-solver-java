@@ -22,20 +22,11 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+        cache: 'maven'
     - name: Build and Test with Maven
       run: mvn -B package --file pom.xml
-    - name: Publish Windows Executable
+    - name: Publish Test Artefacts
       uses: actions/upload-artifact@v2
       with:
-        name: Windows64
-        path: dist/Windows64
-    - name: Publish macOS Executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: MacOS
-        path: dist/MacOS
-    - name: Publish Linux Executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: Linux64
-        path: dist/Linux64
+        name: surefire-reports
+        path: target/surefire-reports
