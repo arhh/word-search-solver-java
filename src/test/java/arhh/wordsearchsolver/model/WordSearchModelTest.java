@@ -1,4 +1,4 @@
-package arhh.wordsearchsolver;
+package arhh.wordsearchsolver.model;
 
 import arhh.wordsearchsolver.model.WordSearchModel;
 import org.junit.BeforeClass;
