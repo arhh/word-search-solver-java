@@ -28,7 +28,7 @@ public class Packager {
         PackrConfig config = new PackrConfig();
         config.platform = platform;
         config.executable = "word-search-solver-java";
-        config.classpath = List.of("./target/word-search-solver-java-1.0-SNAPSHOT.jar");
+        config.classpath = List.of("./target/word-search-solver-java-1.0.jar");
         config.mainClass = "arhh.wordsearchsolver.Main";
         config.outDir = new File(String.format("./dist/%s", platform));
 
