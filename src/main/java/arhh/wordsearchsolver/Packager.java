@@ -8,10 +8,18 @@ import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.compressors.CompressorException;
 
 public class Packager {
+    private static final String DIST_FILE = "./dist";
+    private static final String EXECUTABLE_NAME = "word-search-solver-java";
+    private static final String CLASSPATH = "./target/word-search-solver-java-1.0-SNAPSHOT.jar";
+    private static final String MAIN_CLASS = "arhh.wordsearchsolver.Main";
+    private static final String JDK_LINUX = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz";
+    private static final String JDK_MACOS = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-macos-jdk.tar.gz";
+    private static final String JDK_WINDOWS = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.zip";
+
     public static void main(String[] args) throws CompressorException, IOException, ArchiveException {
         PackrConfig[] packrConfigs = {generatePackrConfig(PackrConfig.Platform.Linux64), generatePackrConfig(PackrConfig.Platform.MacOS), generatePackrConfig(PackrConfig.Platform.Windows64)};
 
-        File distFile = new File("./dist");
+        File distFile = new File(DIST_FILE);
         if (distFile.exists()) {
             deleteOutDir(distFile);
         }
@@ -27,20 +35,20 @@ public class Packager {
     private static PackrConfig generatePackrConfig(PackrConfig.Platform platform) {
         PackrConfig config = new PackrConfig();
         config.platform = platform;
-        config.executable = "word-search-solver-java";
-        config.classpath = List.of("./target/word-search-solver-java-1.0-SNAPSHOT.jar");
-        config.mainClass = "arhh.wordsearchsolver.Main";
-        config.outDir = new File(String.format("./dist/%s", platform));
+        config.executable = EXECUTABLE_NAME;
+        config.classpath = List.of(CLASSPATH);
+        config.mainClass = MAIN_CLASS;
+        config.outDir = new File(String.format("%s/%s", DIST_FILE, platform));
 
         switch (platform) {
             case Linux64:
-                config.jdk = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz";
+                config.jdk = JDK_LINUX;
                 break;
             case MacOS:
-                config.jdk = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-macos-jdk.tar.gz";
+                config.jdk = JDK_MACOS;
                 break;
             case Windows64:
-                config.jdk = "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.zip";
+                config.jdk = JDK_WINDOWS;
                 break;
         }
 
