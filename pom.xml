@@ -52,7 +52,7 @@
                 <version>3.0.0</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
